@@ -6,6 +6,7 @@ import TrustedBy from '../../components/trustedBy/TrustedBy'
 import { cards } from '../../data';
 
 
+
 export const Home = () => {
   return (
     <div className="home">
@@ -53,6 +54,53 @@ export const Home = () => {
         </div>
 
       </div>
+      <div className="features blue">
+        <div className="container">
+          <div className="item">
+
+
+            <div className="text">
+              <span className='logo'>fiverr</span>
+              <span className='dot'>.</span>
+              Business Solutions
+            </div>
+            <h2>Advanced solutions and professional
+              talent for businesses</h2>
+            <h4>Fiverr Pro</h4>
+            <div className="title">
+              <img src="/img/check.png" alt="" />
+              <p>Access top freelancers and professional
+                business tools for any project</p>
+            </div>
+            <h4>Fiverr Certified</h4>
+            <div className="title">
+              <img src="/img/check.png" alt="" />
+              <p>Build your own branded marketplace of
+                certified experts</p>
+            </div>
+            <h4>Fiverr Enterprise</h4>
+            <div className="title">
+              <img src="/img/check.png" alt="" />
+              <p>Manage your freelance workforce and onboard additional talent with an
+                end-to-end SaaS solution</p>
+            </div>
+            <button>Learn more</button>
+
+
+
+          </div>
+          <div className="item blue">
+            <div className="image-container">
+
+            <img src="https://fiverr-res.cloudinary.com/q_auto,f_auto,w_870,dpr_1.0/v1/attachments/generic_asset/asset/51c35c7cecf75e6a5a0110d27909a2f5-1690202609364/EN.png"
+              alt=""
+              style={{ width: "100%"}} />
+              </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   )
 }
