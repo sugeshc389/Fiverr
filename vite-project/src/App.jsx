@@ -10,6 +10,7 @@ import Messages from "./pages/messages/Messages";
 import MyGigs from "./pages/myGigs/MyGigs";
 import Orders from "./pages/orders/Orders";
 import Add from "./pages/add/Add";
+import Login from "./pages/login/Login";
 
 function App() {
 
@@ -33,7 +34,7 @@ function App() {
         {
           path: '/gig/:id',
           element: <Gig />
-
+ 
         },
         {
           path: '/',
@@ -68,6 +69,11 @@ function App() {
         {
           path: '/add',
           element: <Add />
+
+        },
+        {
+          path: '/login',
+          element: <Login/>
 
         },
 
