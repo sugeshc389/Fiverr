@@ -9,18 +9,45 @@ const userSchema = new Schema({
         unique: true,
     },
     email: {
-        type:String,
-        required:true,
-        unique:true,
+        type: String,
+        required: true,
+        unique: true,
     },
-    password:{
-        type:String,
-        required:true,
+    password: {
+        type: String,
+        required: true,
+    },
+    img: {
+        type: String,
+        required: false,
+    },
+    country: {
+        type: String,
+        required: true,
+    },
+    phone: {
+        type: String,
+        required: false,
+    },
+    desc: {
+        type: String,
+        required: false,
+
+    },
+    isSeller: {
+        type: Boolean,
+        default: false,
+
     },
 
 
 
 
-})
 
-export default mongoose.model("User",userSchema);
+},
+    {
+        timestamps: true
+    })
+   
+
+export default mongoose.model("User", userSchema);
