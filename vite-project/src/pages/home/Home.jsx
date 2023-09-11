@@ -92,10 +92,10 @@ export const Home = () => {
           <div className="item blue">
             <div className="image-container">
 
-            <img src="https://fiverr-res.cloudinary.com/q_auto,f_auto,w_870,dpr_1.0/v1/attachments/generic_asset/asset/51c35c7cecf75e6a5a0110d27909a2f5-1690202609364/EN.png"
-              alt=""
-              style={{ width: "100%"}} />
-              </div>
+              <img src="https://fiverr-res.cloudinary.com/q_auto,f_auto,w_870,dpr_1.0/v1/attachments/generic_asset/asset/51c35c7cecf75e6a5a0110d27909a2f5-1690202609364/EN.png"
+                alt=""
+                style={{ width: "100%", height: "100%" }} />
+            </div>
           </div>
         </div>
 

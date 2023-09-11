@@ -11,18 +11,28 @@ import MyGigs from "./pages/myGigs/MyGigs";
 import Orders from "./pages/orders/Orders";
 import Add from "./pages/add/Add";
 import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+
 
 function App() {
+  const queryClient = new QueryClient();
 
   const Layout = () => {
 
     return (
 
       <div className="app">
-        <Navbar />
-        <Outlet />
-        <Footer />
+        <QueryClientProvider client={queryClient}>
 
+          <Navbar />
+          <Outlet />
+          <Footer />
+
+        </QueryClientProvider>
       </div>
     )
   }
@@ -34,7 +44,7 @@ function App() {
         {
           path: '/gig/:id',
           element: <Gig />
- 
+
         },
         {
           path: '/',
@@ -73,9 +83,13 @@ function App() {
         },
         {
           path: '/login',
-          element: <Login/>
+          element: <Login />
 
         },
+        {
+          path: '/register',
+          element: <Register />
+        }
 
 
       ]
