@@ -48,11 +48,11 @@ const GigSchema = new Schema({
     },
     deliveryTime: {
         type: Number,
-        required,
+        required: true,
     },
     revisionNumber: {
         type: Number,
-        required,
+        required: true,
     },
     features: {
         type: [String],
@@ -61,10 +61,12 @@ const GigSchema = new Schema({
     sales: {
         type: Number,
         default: 0,
-    },{
-        timestamps:true
     }
 
-})
+
+},
+    {
+        timestamps: true
+    });
 
 export default mongoose.model("Gig", GigSchema)
