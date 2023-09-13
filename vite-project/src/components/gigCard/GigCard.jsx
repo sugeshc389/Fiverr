@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 
 const GigCard = ({ item }) => {
+  console.log(item);
   const { isLoading, error, data } = useQuery({
     queryKey: [item.userId],
     queryFn: () =>
@@ -23,7 +24,7 @@ const GigCard = ({ item }) => {
           ) : (
             <div className="user">
               <img src={data.img || "/img/noavatar.jpg"} alt="" />
-              <span>{data.username}</span>
+              <span>{data.userName}</span>
             </div>
           )}
           <p>{item.desc}</p>
@@ -37,7 +38,7 @@ const GigCard = ({ item }) => {
         </div>
         <hr />
         <div className="detail">
-          <img src="./img/heart.png" alt="" />
+          <img className="img" src="./img/heart.png" alt="" />
           <div className="price">
             <span>STARTING AT</span>
             <h2>$ {item.price}</h2>
