@@ -68,7 +68,7 @@ function Navbar() {
                     Orders
                   </Link>
                   {!currentUser.isSeller &&
-                    (<Link className="link" to={`"/whishlist/${currentUser._id}"`}>
+                    (<Link className="link" to={`whishlist`}>
                       Whishlist
                     </Link>)}
                   <Link className="link" to="/messages">

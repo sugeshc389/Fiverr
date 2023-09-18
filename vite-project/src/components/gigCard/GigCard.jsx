@@ -24,14 +24,11 @@ const GigCard = ({ item }) => {
   });
   const handleClick = async () => {
 
-    const res = await newRequest.put('/whishlist', { item });
+    const res = await newRequest.post('/whishlist', { item });
     setColorChanged(!isColorChanged);
     console.log(res);
 
   }
-
-
-
 
   return (
 
