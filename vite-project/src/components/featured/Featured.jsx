@@ -9,6 +9,7 @@ const Featured = () => {
     const handleSubmit = () =>{
         navigate(`/gigs?search=${input}`); 
     }
+   
     return (
         <div className="featured">
             <dic className="container">
@@ -28,6 +29,7 @@ const Featured = () => {
                         <button>WordPress</button>
                         <button>Logo Design</button>
                         <button>AI Services</button>
+                       
                     </div>
 
                 </div>

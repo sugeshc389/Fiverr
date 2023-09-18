@@ -55,7 +55,7 @@ function Gig() {
                   src={dataUser.img || "/img/noavatar.jpg"}
                   alt=""
                 />
-                <span>{dataUser.username}</span>
+                <span>{dataUser.userName}</span>
                 {!isNaN(data.totalStars / data.starNumber) && (
                   <div className="stars">
                     {Array(Math.round(data.totalStars / data.starNumber))

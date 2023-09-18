@@ -1,20 +1,42 @@
+import { useState } from 'react';
 import "./GigCard.scss";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 
+
+
+
+
 const GigCard = ({ item }) => {
-  console.log(item);
+  const [isColorChanged, setColorChanged] = useState(false);
+
+
   const { isLoading, error, data } = useQuery({
     queryKey: [item.userId],
     queryFn: () =>
       newRequest.get(`/users/${item.userId}`).then((res) => {
         return res.data;
       }),
+
+
+
   });
+  const handleClick = async () => {
+
+    const res = await newRequest.put('/whishlist', { item });
+    setColorChanged(!isColorChanged);
+    console.log(res);
+
+  }
+
+
+
+
   return (
-    <Link to={`/gig/${item._id}`} className="link">
-      <div className="gigCard">
+
+    <div className="gigCard">
+      <Link to={`/gig/${item._id}`} className="link">
         <img src={item.cover} alt="" />
         <div className="info">
           {isLoading ? (
@@ -36,17 +58,29 @@ const GigCard = ({ item }) => {
             </span>
           </div>
         </div>
-        <hr />
-        <div className="detail">
-          <img className="img" src="./img/heart.png" alt="" />
-          <div className="price">
-            <span>STARTING AT</span>
-            <h2>$ {item.price}</h2>
-          </div>
+      </Link>
+      <hr />
+      <div className="detail">
+        <div className="whishlist">
+          <img
+            onClick={handleClick}
+            className={`image ${isColorChanged ? 'color-changed' : ''}`}
+            src="./img/hert 1.png"
+            alt=""
+            title="Wishlist"
+          />
+        </div>
+
+        <div className="price">
+          <span>STARTING AT</span>
+          <h2>$ {item.price}</h2>
         </div>
       </div>
-    </Link>
+    </div>
+
+
   );
+
 };
 
 export default GigCard;

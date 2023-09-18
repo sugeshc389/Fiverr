@@ -16,6 +16,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import Whishlist from "./pages/whishlist/Whishlist";
 
 
 function App() {
@@ -89,6 +90,10 @@ function App() {
         {
           path: '/register',
           element: <Register />
+        },
+        {
+          path:'/whishlist/',
+          element:<Whishlist/>
         }
 
 

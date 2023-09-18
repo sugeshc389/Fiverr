@@ -74,7 +74,7 @@ export const Home = () => {
             </div>
             <h4>Fiverr Certified</h4>
             <div className="title">
-              <img src="/img/check.png" alt="" />
+              <img  src="/img/check.png" alt="" />
               <p>Build your own branded marketplace of
                 certified experts</p>
             </div>

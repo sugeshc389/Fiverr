@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import "./Navbar.scss";
@@ -67,6 +67,10 @@ function Navbar() {
                   <Link className="link" to="/orders">
                     Orders
                   </Link>
+                  {!currentUser.isSeller &&
+                    (<Link className="link" to={`"/whishlist/${currentUser._id}"`}>
+                      Whishlist
+                    </Link>)}
                   <Link className="link" to="/messages">
                     Messages
                   </Link>
@@ -80,7 +84,7 @@ function Navbar() {
             <>
               <Link to="/login" className="link">Sign in</Link>
               <Link className="link" to="/register">
-                <button>Join</button>  
+                <button>Join</button>
               </Link>
             </>
           )}
