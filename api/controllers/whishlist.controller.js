@@ -20,27 +20,31 @@ export const addToWhishlist = async (req, res, next) => {
                 { _id: userId },
                 { $pull: { whishList: gigId } }
             );
+            
         } else {
 
             await User.updateOne(
                 { _id: userId },
                 { $push: { whishList: gigId } }
             );
+            
         }
 
 
         const updatedUser = await User.findById(userId);
         res.status(200).send(updatedUser);
     } catch (error) {
+        console.error("Error in addToWhishlist:", error);
         next(error);
     }
+    
 };
 export const getToWhishlist = async (req, res, next) =>{
 
     const user = await User.findById(req.params.id)
     try {
         res.send(user)
-        console.log('this is get whishlist',user);
+        console.log('this is get whishlist',user.whishList);
         
     } catch (error) {
         next(error)
