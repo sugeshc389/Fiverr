@@ -39,6 +39,7 @@ const userSchema = new Schema({
         default: false,
 
     },
+    whishList: [{ type: mongoose.Schema.Types.ObjectId, ref: "Gig" }]
 
 
 
@@ -48,6 +49,6 @@ const userSchema = new Schema({
     {
         timestamps: true
     })
-   
+
 
 export default mongoose.model("User", userSchema);

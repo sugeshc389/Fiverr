@@ -9,6 +9,7 @@ import cors from "cors";
 import morgan from 'morgan'
 import reviewRoute from './routes/review.route.js';
 import orderRoute from './routes/order.route.js';
+import whishlistRoute from './routes/whishlist.route.js';
 // import messageRoute from './routes/message.route.js';
 // import conversationRoute from './routes/conversation.route.js';
 
@@ -39,6 +40,8 @@ app.use('/api/users', userRoute);
 app.use('/api/gigs', gigRoute);
 app.use('/api/reviews', reviewRoute);
 app.use('/api/orders', orderRoute);
+app.use('/api', whishlistRoute);
+
 // app.use('./api/messages', messageRoute);
 // app.use('./api/conversations', conversationRoute);
 
@@ -51,5 +54,5 @@ app.use((err, req, res, next) => {
 
 app.listen(8800, () => {
     connect();
-    console.log("Server is Running");
+    console.log("Server is Running On Port:8800");
 })

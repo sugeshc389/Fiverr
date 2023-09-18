@@ -33,6 +33,7 @@ export const getOrder = async (req, res, next) => {
             ...(req.isSeller ? { sellerId: req.userId } : { buyerId: req.userId }),
             isCompleted: true
         })
+        res.status(200).send(orders)
 
     } catch (error) {
         next(error)
