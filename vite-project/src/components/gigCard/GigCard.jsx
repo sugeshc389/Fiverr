@@ -22,9 +22,19 @@ const GigCard = ({ item }) => {
 
 
   });
-  const handleClick = async () => {
 
-    const res = await newRequest.post('/whishlist', { item });
+  const handleClick = async (id) => {
+
+    const user_id = localStorage.getItem("currentUser");
+    const userObject = JSON.parse(user_id);
+    const userId = userObject._id;
+
+    const body = {
+      gig_id: id,
+      userId
+    }
+
+    const res = await newRequest.post('/whishlist', body);
     setColorChanged(!isColorChanged);
     console.log(res);
 
@@ -60,7 +70,7 @@ const GigCard = ({ item }) => {
       <div className="detail">
         <div className="whishlist">
           <img
-            onClick={handleClick}
+            onClick={() => handleClick(item._id)}
             className={`image ${isColorChanged ? 'color-changed' : ''}`}
             src="./img/hert 1.png"
             alt=""

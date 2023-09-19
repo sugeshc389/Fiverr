@@ -10,6 +10,35 @@ function Gigs() {
   const [open, setOpen] = useState(false);
   const minRef = useRef();
   const maxRef = useRef();
+  
+  const user_id = localStorage.getItem("currentUser");
+  console.log('.....................', user_id);
+  
+  // Parse the JSON string into an object
+  const userObject = JSON.parse(user_id);
+  
+  const userId = userObject._id;
+  console.log('------------------------------', userId);
+  
+
+  const sendUser = async () =>{
+
+    try {
+      const response = await newRequest.get("/whishlist", {
+        params: {
+          id:userId
+        },
+      })
+      console.log('This -is----------------',response);
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+    
+    
+  }
+
 
   const { search } = useLocation();
 
@@ -28,8 +57,8 @@ function Gigs() {
         })
 
   });
+  
 
-  console.log(data);
 
   const reSort = (type) => {
     setSort(type);

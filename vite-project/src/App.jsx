@@ -92,7 +92,7 @@ function App() {
           element: <Register />
         },
         {
-          path:'/whishlist/',
+          path:'/whishlist',
           element:<Whishlist/>
         }
 
