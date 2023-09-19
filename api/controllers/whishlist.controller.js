@@ -2,32 +2,29 @@ import User from "../models/user.model.js"
 // import createError from "../utils/createError";
 
 
-export const addToWhishlist = async (req, res, next) => {
-    const userId = req.body.item.userId;
-    const gigId = req.body.item._id;
 
-    console.log('This is wishlist', userId);
+export const addToWhishlist = async (req, res, next) => {
+
+    const { userId, gig_id } = req.body
 
     try {
         const user = await User.findById(userId);
-
-
-        const alreadyIn = user.whishList.some((id) => id.toString() === gigId);
+        const alreadyIn = user.whishList.some((id) => id.toString() === gig_id);
 
         if (alreadyIn) {
 
             await User.updateOne(
                 { _id: userId },
-                { $pull: { whishList: gigId } }
+                { $pull: { whishList: gig_id } }
             );
-            
+
         } else {
 
             await User.updateOne(
                 { _id: userId },
-                { $push: { whishList: gigId } }
+                { $push: { whishList: gig_id } }
             );
-            
+
         }
 
 
@@ -37,20 +34,20 @@ export const addToWhishlist = async (req, res, next) => {
         console.error("Error in addToWhishlist:", error);
         next(error);
     }
-    
-};
-export const getToWhishlist = async (req, res, next) =>{
 
-    const user = await User.findById(req.params.id)
+};
+export const getToWhishlist = async (req, res, next) => {
+
+    const user = await User.findById(req.body.id)
     try {
         res.send(user)
-        console.log('this is get whishlist',user.whishList);
-        
+        console.log('this is get whishlist', user.whishList);
+
     } catch (error) {
         next(error)
-        
+
     }
 
-   
-    
+
+
 }
