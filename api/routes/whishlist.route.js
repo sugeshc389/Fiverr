@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 
 router.post('/whishlist', addToWhishlist);
-router.get('/whishlist', getToWhishlist);
+router.get('/whishlist/:id', getToWhishlist);
 
 
 export default router;

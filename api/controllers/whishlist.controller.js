@@ -38,10 +38,12 @@ export const addToWhishlist = async (req, res, next) => {
 };
 export const getToWhishlist = async (req, res, next) => {
 
-    const user = await User.findById(req.body.id)
+    const user = await User.findById(req.params.id)
+    
     try {
-        res.send(user)
-        console.log('this is get whishlist', user.whishList);
+        res.status(200).send(user)
+        
+        
 
     } catch (error) {
         next(error)
