@@ -3,6 +3,7 @@ import User from "../models/user.model.js"
 
 
 
+
 export const addToWhishlist = async (req, res, next) => {
 
     const { userId, gig_id } = req.body
@@ -38,7 +39,8 @@ export const addToWhishlist = async (req, res, next) => {
 };
 export const getToWhishlist = async (req, res, next) => {
 
-    const user = await User.findById(req.params.id)
+    const user = await User.findById(req.params.id).populate('whishList')
+       console.log(user);
     
     try {
         res.status(200).send(user)
