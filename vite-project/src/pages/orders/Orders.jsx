@@ -50,7 +50,7 @@ const Orders = () => {
               <th>Price</th>
               <th>Contact</th>
             </tr>
-            {data.map((order) => (
+            {data.map(( order) => (
               <tr key={order._id}>
                 <td>
                   <img className="image" src={order.img} alt="" />

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import newRequest from "../../utils/newRequest";
 import "./Navbar.scss";
-// import { useQuery } from "@tanstack/react-query";
+
 
 
 function Navbar() {
@@ -38,12 +37,6 @@ function Navbar() {
 
   const handleWhishlist = async () => {
 
-  
-        newRequest.get(`/whishlist/${currentUser._id}`).then((res) => {
-          return res.data;
-        }),
-  
-
     
     nav('/whishlist');
 
@@ -53,9 +46,6 @@ function Navbar() {
     // const userId = userObject._id;
     // const body = {
     //   userId,
-
-
-
 
   }
 
