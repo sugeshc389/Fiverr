@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import "./Navbar.scss";
+// import { useQuery } from "@tanstack/react-query";
 
 
 function Navbar() {
   const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
-  
+
   const { pathname } = useLocation();
-  
+
   const isActive = () => {
     window.scrollY > 0 ? setActive(true) : setActive(false);
   };
-  
+
   useEffect(() => {
     window.addEventListener("scroll", isActive);
     return () => {
@@ -24,7 +25,7 @@ function Navbar() {
 
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-  
+
   const handleLogout = async () => {
     try {
       await newRequest.post("/auth/logout");
@@ -34,29 +35,30 @@ function Navbar() {
       console.log(err);
     }
   };
-  
+
   const handleWhishlist = async () => {
+
+  
+        newRequest.get(`/whishlist/${currentUser._id}`).then((res) => {
+          return res.data;
+        }),
+  
+
+    
     nav('/whishlist');
-    console.log('+++++++++++++++++++++++');
-    console.log('+++++++++++++++++++++++');
 
-    // try {
-    //   const user_id = localStorage.getItem("currentUser");
-    //   const userObject = JSON.parse(user_id);
-    //   const userId = userObject._id;
-    //   const body = {
-    //     userId,
-    //   }
-     
-      
-    // } catch (error) {
-    //   console.log(error);
-      
-    // }
 
-   
+    // const user_id = localStorage.getItem("currentUser");
+    // const userObject = JSON.parse(user_id);
+    // const userId = userObject._id;
+    // const body = {
+    //   userId,
+
+
+
 
   }
+
 
   return (
     <div className={active || pathname !== "/" ? "navbar active" : "navbar"}>
@@ -92,9 +94,9 @@ function Navbar() {
                     Orders
                   </Link>
                   {!currentUser.isSeller &&
-                    (<Link className="link" onClick={handleWhishlist}>
+                    (<span className="link" onClick={handleWhishlist}>
                       Whishlist
-                    </Link>)}
+                    </span>)}
                   <Link className="link" to="/messages">
                     Messages
                   </Link>

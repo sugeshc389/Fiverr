@@ -9,7 +9,7 @@ import newRequest from "../../utils/newRequest";
 
 
 const GigCard = ({ item }) => {
-  const [isColorChanged, setColorChanged] = useState(false);
+  const [isColorChanged, setColorChanged] = useState(true);
 
 
   const { isLoading, error, data } = useQuery({
