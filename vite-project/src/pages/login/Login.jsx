@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Login.scss';
 import newRequest from "../../utils/newRequest";
 import { useNavigate } from 'react-router-dom';
@@ -8,13 +8,17 @@ function Login() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    })
+
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         try {
             const res = await newRequest.post("/auth/login", { username, password });
-            localStorage.setItem("currentUser",JSON.stringify(res.data));
+            localStorage.setItem("currentUser", JSON.stringify(res.data));
             navigate("/")
         } catch (err) {
             setError(err.response.data);
