@@ -8,35 +8,13 @@ import { useLocation } from "react-router-dom";
 function Gigs() {
   const [sort, setSort] = useState("sales");
   const [open, setOpen] = useState(false);
+  const [cat,setCat] = useState('')
   const minRef = useRef();
   const maxRef = useRef();
-
+  
   const user_id = localStorage.getItem("currentUser");
-
   const userObject = JSON.parse(user_id);
-
   const userId = userObject._id;
-
-
-
-  const sendUser = async () => {
-
-    try {
-      const response = await newRequest.get("/whishlist", {
-        params: {
-          id: userId
-        },
-      })
-
-
-    } catch (error) {
-      console.log(error);
-
-    }
-
-
-  }
-
 
   const { search } = useLocation();
 
@@ -47,44 +25,43 @@ function Gigs() {
         .get(
           `/gigs${search}&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`
         )
-        .then((res) => {
-          return res.data;
-        }).catch((error) => {
-          console.log("Error fetching dt:", error);
-          throw error
-        })
-
+        .then((res) => res.data)
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          throw error;
+        }),
   });
-
-
 
   const reSort = (type) => {
     setSort(type);
     setOpen(false);
   };
 
-  useEffect(() => {
-    refetch();
-  }, [sort]);
-
-  const apply = () => {
+  const applyFilters = () => {
     refetch();
   };
+  useEffect(()=>{
+    setCat(data[0].cat);
+
+  })
+  console.log(cat);
+ 
+  
 
   return (
     <div className="gigs">
       <div className="container">
-        <span className="breadcrumbs">Fiverr{" >"}Graphics & Design{" >"}</span>
-        <h1>AI Artists</h1>
-        <p>
-          Explore the boundaries of art and technology with Fiverr's AI artists
-        </p>
+        <span className="breadcrumbs">Fiverr </span>
+        <h1>{cat || "Your Gig Title"}</h1>
+
+        <p>Explore the boundaries of art and technology with Fiverr's... {cat }</p>
+
         <div className="menu">
           <div className="left">
             <span>Budget</span>
             <input ref={minRef} type="number" placeholder="min" />
             <input ref={maxRef} type="number" placeholder="max" />
-            <button onClick={apply}>Apply</button>
+            <button onClick={applyFilters}>Apply</button>
           </div>
           <div className="right">
             <span className="sortBy">Sort by</span>
@@ -94,22 +71,24 @@ function Gigs() {
             <img src="./img/down.png" alt="" onClick={() => setOpen(!open)} />
             {open && (
               <div className="rightMenu">
-                {sort === "sales" ? (
-                  <span onClick={() => reSort("createdAt")}>Newest</span>
-                ) : (
-                  <span onClick={() => reSort("sales")}>Best Selling</span>
-                )}
-                <span onClick={() => reSort("sales")}>Popular</span>
+                <span onClick={() => reSort("createdAt")}>Newest</span>
+                <span onClick={() => reSort("sales")}>Best Selling</span>
+                <span onClick={() => reSort("popularity")}>Popular</span>
               </div>
             )}
           </div>
         </div>
+
         <div className="cards">
-          {isLoading
-            ? "loading"
-            : error
-              ? "Something went wrong!"
-              : data.map((gig) => <GigCard key={gig._id} item={gig} />)}
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p>Something went wrong!</p>
+          ) : (
+            data.map((gig) => (
+              <GigCard key={gig._id} item={gig} />
+            ))
+          )}
         </div>
       </div>
     </div>

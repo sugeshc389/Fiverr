@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import newRequest from '../../utils/newRequest';
 import "./Navbar.scss";
 
 
@@ -26,6 +27,7 @@ function Navbar() {
 
 
   const handleLogout = async () => {
+    
     try {
       await newRequest.post("/auth/logout");
       localStorage.setItem("currentUser", null);
@@ -37,15 +39,9 @@ function Navbar() {
 
   const handleWhishlist = async () => {
 
-    
+
     nav('/whishlist');
 
-
-    // const user_id = localStorage.getItem("currentUser");
-    // const userObject = JSON.parse(user_id);
-    // const userId = userObject._id;
-    // const body = {
-    //   userId,
 
   }
 

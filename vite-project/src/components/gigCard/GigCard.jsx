@@ -6,8 +6,6 @@ import newRequest from "../../utils/newRequest";
 
 
 
-
-
 const GigCard = ({ item }) => {
   const [isColorChanged, setColorChanged] = useState(true);
 
@@ -43,6 +41,7 @@ const GigCard = ({ item }) => {
   return (
 
     <div className="gigCard">
+      
       <Link to={`/gig/${item._id}`} className="link">
         <img src={item.cover} alt="" />
         <div className="info">
