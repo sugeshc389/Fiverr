@@ -4,6 +4,11 @@ import User from "../models/user.model.js"
 
 
 
+
+
+
+
+
 export const addToWhishlist = async (req, res, next) => {
 
     const { userId, gig_id } = req.body
@@ -40,8 +45,7 @@ export const addToWhishlist = async (req, res, next) => {
 export const getToWhishlist = async (req, res, next) => {
 
     const user = await User.findById(req.params.id).populate('whishList')
-       console.log(user);
-    
+           
     try {
         res.status(200).send(user)
         
@@ -55,3 +59,34 @@ export const getToWhishlist = async (req, res, next) => {
 
 
 }
+
+
+export const removeToWhishlist = async (req, res, next) => {
+    const userId = req.params.userId;
+    const gigId = req.params.gigId;
+
+  try {
+   
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+   
+    const index = user.whishList.indexOf(gigId);
+    if (index === -1) {
+      return res.status(404).json({ message: "Item not found in wishlist" });
+    }
+  
+    user.whishList.splice(index, 1);
+
+    
+    await user.save();
+
+    
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
