@@ -8,10 +8,15 @@ import { useLocation } from "react-router-dom";
 function Gigs() {
   const [sort, setSort] = useState("sales");
   const [open, setOpen] = useState(false);
-  const [cat,setCat] = useState('')
+  const [cat, setCat] = useState('')
   const minRef = useRef();
   const maxRef = useRef();
-  
+
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+
+  })
+
   const user_id = localStorage.getItem("currentUser");
   const userObject = JSON.parse(user_id);
   const userId = userObject._id;
@@ -40,13 +45,17 @@ function Gigs() {
   const applyFilters = () => {
     refetch();
   };
-  useEffect(()=>{
-    setCat(data[0].cat);
-
-  })
-  console.log(cat);
- 
+  useEffect(() => {
+    if (data && data.length > 0 && data[0].cat === undefined) {
+      console.log(cat);
+    }
+    if (data && data.length > 0) {
+      setCat(data[0].cat);
+    }
+  }, [data, cat]);
   
+
+
 
   return (
     <div className="gigs">
@@ -54,7 +63,7 @@ function Gigs() {
         <span className="breadcrumbs">Fiverr </span>
         <h1>{cat || "Your Gig Title"}</h1>
 
-        <p>Explore the boundaries of art and technology with Fiverr's... {cat }</p>
+        <p>Explore the boundaries of art and technology with Fiverr's... {cat}</p>
 
         <div className="menu">
           <div className="left">
