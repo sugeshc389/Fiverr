@@ -1,0 +1,207 @@
+body {
+    background-color: #f7f7f7;
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    margin-left: 60px;
+    margin-top: 60px;
+}
+
+.div1 {
+    grid-area: 1 / 1 / 2 / 2;
+    background-color: #ffff;
+    text-align: start;
+    text-align: center;
+    padding: 50px;
+    border: 1px solid #c9cacc;
+
+    h4 {
+        color: #7f8083;
+    }
+
+    .line {
+        height: 2px;
+        width: 400px;
+        background-color: #c9cacc;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+.div2 {
+    grid-area: 2 / 1 / 3 / 2;
+    background-color: #ffff;
+    border: 1px solid #c9cacc;
+
+    .head {
+        margin-left: 20px;
+        margin-top: 20px;
+
+        span {
+            color: #1dbf73;
+        }
+
+        h1 {
+            font-family: 'Crete Round', serif;
+            font-family: 'Merienda', cursive;
+            font-family: 'Montserrat', sans-serif;
+        }
+    }
+
+    .imgDiv {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+
+        p {
+            color: #7f8083;
+        }
+    }
+
+    .scondDivBtn {
+        margin-left: 170px;
+        background-color: #1dbf73;
+        border-radius: 4px;
+        box-shadow: none;
+        width: 150px;
+        height: 50px;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: normal;
+        color: #ffff;
+        border: none;
+
+        &:hover {
+            background-color: #218958;
+        }
+    }
+}
+
+.div3 {
+    grid-area: 3 / 1 / 4 / 2;
+    background-color: #ffff;
+    border: 1px solid #c9cacc;
+}
+
+.div4 {
+    grid-area: 4 / 1 / 5 / 2;
+    background-color: #ffff;
+    border: 1px solid #c9cacc;
+}
+
+.div5 {
+    grid-area: 1 / 2 / 2 / 5;
+    background-color: #ffff;
+    margin-left: 100px;
+    margin-right: 60px;
+    border: 1px solid #c9cacc;
+
+    .item{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding-top: 100px;
+
+        p{
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+        button{
+            margin-left: 40px;
+            background-color: #1dbf73;
+            border-radius: 4px;
+            box-shadow: none;
+            width: 150px;
+            height: 50px;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: normal;
+            color: #ffff;
+            border: none;
+            
+        }
+        button:hover{
+            background-color: #218958;
+
+        }
+    }
+    
+}
+
+.proImg {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.btn {
+    color: #1dbf73;
+    background-color: #f7f7f7;
+    border-color: #1dbf73;
+    border-radius: 12px;
+    box-shadow: none;
+    letter-spacing: normal;
+    line-height: 18.2px;
+    font-size: 14px;
+    width: 80px;
+}
+
+.disName {
+    width: 300px;
+    font-size: 20px;
+
+    button {
+        border-radius: 12px;
+        width: 40px;
+        background-color: #ff62ad;
+        font-size: 10px;
+        line-height: 20px;
+        text-align: center;
+        letter-spacing: normal;
+        border: none;
+        color: #f7f7f7;
+        text-align: center;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+}
+
+.prevFivProBtn {
+    font-size: 14px;
+    line-height: 14px;
+    letter-spacing: normal;
+    text-align: center;
+    box-shadow: none;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #62646a;
+    width: 400px;
+    height: 40px;
+
+    &:hover {
+        background-color: #62646a;
+        color: #ffff;
+    }
+}
+
+.loction,
+.memberSince {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: space-between;
+}

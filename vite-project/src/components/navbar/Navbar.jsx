@@ -27,7 +27,7 @@ function Navbar() {
 
 
   const handleLogout = async () => {
-    
+
     try {
       await newRequest.post("/auth/logout");
       localStorage.setItem("currentUser", null);
@@ -42,6 +42,10 @@ function Navbar() {
 
     nav('/whishlist');
 
+
+  }
+  const handleProfile = async () => {
+    nav('/profile');
 
   }
 
@@ -66,6 +70,11 @@ function Navbar() {
               <span>{currentUser?.userName}</span>
               {open && (
                 <div className="options">
+
+                  <span
+                    onClick={handleProfile}>
+                    Profile
+                  </span>
                   {currentUser.isSeller && (
                     <>
                       <Link className="link" to="/mygigs">

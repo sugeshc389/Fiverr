@@ -17,6 +17,8 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import Whishlist from "./pages/whishlist/Whishlist";
+import Profile from "./pages/profile/Profile";
+import OrderPopup from "./pages/orderPopup/OrderPopup";
 
 
 function App() {
@@ -94,6 +96,14 @@ function App() {
         {
           path:'/whishlist',
           element:<Whishlist/>
+        },
+        {
+          path:'/profile',
+          element:<Profile/>
+        },
+        {
+          path:'/popup/:id',
+          element:<OrderPopup/>
         }
 
 

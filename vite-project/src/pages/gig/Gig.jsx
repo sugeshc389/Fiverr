@@ -1,12 +1,33 @@
 import "./Gig.scss";
+
+import {
+  Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Divider, Typography, Stack,
+  Accordion, AccordionSummary, AccordionDetails, Grid
+} from "@mui/material"
+import { useState } from "react"
 import { Slider } from "infinite-react-carousel/lib";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import Reviews from "../../components/reviews/Reviews";
+import IconButton from '@mui/material/IconButton';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+
+
+
+
+
+
 
 function Gig() {
   const { id } = useParams();
+  const [open, openChange] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["gig"],
@@ -15,6 +36,17 @@ function Gig() {
         return res.data;
       }),
   });
+  const functionOpenPopup = () => {
+    openChange(true);
+  }
+  const closePopup = () => {
+    openChange(false);
+
+
+  }
+
+
+
 
   const userId = data?.userId;
 
@@ -30,6 +62,21 @@ function Gig() {
       }),
     enabled: !!userId,
   });
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1)
+
+    }
+
+  }
+
+  const handleIncrement = () => {
+    setQuantity(quantity + 1)
+
+
+  };
+
 
   return (
     <div className="gig">
@@ -155,13 +202,130 @@ function Gig() {
                 </div>
               ))}
             </div>
-            <Link to={`/pay/${id}`}>
-            <button>Continue</button>
-            </Link>
+            <div style={{ textAlign: 'center' }}>
+              <Button onClick={functionOpenPopup} color="primary" variant="contained">Continue</Button>
+
+              <Dialog open={open} onClose={closePopup} fullWidth maxWidth="sm" sx={{ height: '100vh' }} >
+                <DialogTitle>Order options</DialogTitle>
+                <Divider variant="middle" orientation="horizontal" />
+
+
+                <DialogContent>
+                  <DialogContentText>
+
+                  </DialogContentText>
+
+                  <Stack alignItems='center' spacing={2} sx={{ border: '1px solid' }}>
+                    <Grid container direction="row" justifyContent="space-between">
+                      <Typography gutterBottom variant="h5" component='div'>
+                        Basic
+                      </Typography>
+                      <Typography>₹{data.price * quantity}</Typography>
+                    </Grid>
+
+                    <Grid container direction="column">
+                      <Typography variant="body2" color='text.secondary'>
+                        Basic Package I will do a unique logo design for your business
+                      </Typography>
+                    </Grid>
+
+                    <Grid container direction="row" justifyContent="space-around">
+
+
+                      <Typography>Gig Quantity </Typography>
+
+                      <IconButton color="primary" aria-label="Add" onClick={() => handleIncrement()} >
+                        <AddCircleIcon sx={{ fontSize: 50 }} />
+                      </IconButton >
+                      <Typography>{quantity}</Typography>
+
+                      <IconButton color="primary" aria-label="min" onClick={() => handleDecrement()}>
+                        <RemoveCircleIcon sx={{ fontSize: 50 }} />
+                      </IconButton>
+                    </Grid>
+
+
+                  </Stack>
+
+
+                  <Typography >Upgrade your order with extras</Typography>
+
+
+                  <Stack alignItems='center' spacing={5} sx={{ border: '1px solid' }}>
+                    <Grid container direction="row" justifyContent="space-between">
+                      <Typography >Extra-fast 1-day delivery</Typography>
+
+
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+
+                            color="primary"
+                          />
+                        }
+
+                      />
+                    </Grid>
+                    <Grid container direction="column">
+
+                      <Typography>₹{data.price}</Typography>
+                    </Grid>
+
+                  </Stack>
+
+                  <Stack alignItems='center' spacing={5} sx={{ border: '1px solid' }}>
+                    <Grid container direction="row" justifyContent="space-between">
+
+                      <Typography >Additional revision(+1 day)</Typography>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+
+                            color="primary"
+                          />
+                        }
+
+                      />
+                    </Grid>
+                    <Grid container direction="column">
+                      <Typography >Add an additional revision your seller will provide after the delivery</Typography>
+                      ₹873
+                    </Grid>
+
+                  </Stack>
+
+                  <Accordion>
+                    <AccordionSummary
+                      id='panel1-header'
+                      aria-control='panel1-content'
+                      expandIcon={<ExpandMoreIcon />}>
+                      <Typography>Show more extras
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Voluptatibus assumenda praesentium molestias labore doloribus! Similique animi cumque beatae,
+                      quo earum delectus dolores velit eligendi tempore placeat, ad recusandae iusto distinctio!
+                    </AccordionDetails>
+
+                  </Accordion>
+
+
+                </DialogContent>
+                <DialogActions>
+                  <Button color="success" variant="contained">Continue(₹{data.price * quantity})</Button>
+                  <Button onClick={closePopup} color="error" variant="contained">Close</Button>
+                </DialogActions>
+
+              </Dialog>
+            </div>
+
           </div>
         </div>
-      )}
-    </div>
+      )
+      }
+
+    </div >
   );
 }
 
