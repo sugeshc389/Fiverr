@@ -3,7 +3,8 @@ import Order from "../models/order.model.js";
 import Gig from "../models/gig.model.js";
 
 
-export const createOrder = async (req, res, next) => {
+
+export const  createOrder = async (req, res, next) => {
     try {
         const gig = await Gig.findById(req.params.gigId)
         const neworder = new Order({
@@ -13,12 +14,13 @@ export const createOrder = async (req, res, next) => {
             buyerId: req.userId,
             sellerId: gig.userId,
             price: gig.price,
-            payment_intent: "temporary"
+            payment_intent: "temporary",
+            isCompleted:true
 
         })
 
         await neworder.save()
-        res.send(200).send("Successful")
+        res.send(200).send(neworder )
 
     } catch (error) {
         next(error)

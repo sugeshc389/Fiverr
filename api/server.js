@@ -12,6 +12,7 @@ import orderRoute from './routes/order.route.js';
 import whishlistRoute from './routes/whishlist.route.js';
 // import messageRoute from './routes/message.route.js';
 // import conversationRoute from './routes/conversation.route.js';
+import paymentRoutes from './routes/payment.js';
 
 const app = express();
 dotenv.config();
@@ -41,6 +42,8 @@ app.use('/api/gigs', gigRoute);
 app.use('/api/reviews', reviewRoute);
 app.use('/api/orders', orderRoute);
 app.use('/api', whishlistRoute);
+app.use('/api/payment/', paymentRoutes);
+
 
 // app.use('./api/messages', messageRoute);
 // app.use('./api/conversations', conversationRoute);

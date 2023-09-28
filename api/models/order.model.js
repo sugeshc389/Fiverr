@@ -33,7 +33,7 @@ const orderSchema = new Schema({
     },
     payment_intent:{
         type:String,
-        required:true,
+        required:false,
     },
     quantity:{
         type:Number,
