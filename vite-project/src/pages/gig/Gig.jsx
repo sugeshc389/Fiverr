@@ -6,7 +6,7 @@ import {
 } from "@mui/material"
 import { useState } from "react"
 import { Slider } from "infinite-react-carousel/lib";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import Reviews from "../../components/reviews/Reviews";
@@ -23,19 +23,29 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 
 
+
 function Gig() {
   const { id } = useParams();
   const [open, openChange] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [gig, setGig] = useState([]);
+  const nav = useNavigate();
+
 
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["gig"],
     queryFn: () =>
       newRequest.get(`/gigs/single/${id}`).then((res) => {
+        setGig(data)
         return res.data;
+
+
+
       }),
+
   });
+  console.log(gig);
   const functionOpenPopup = () => {
     openChange(true);
   }
@@ -67,6 +77,7 @@ function Gig() {
     if (quantity > 1) {
       setQuantity(quantity - 1)
 
+
     }
 
   }
@@ -74,8 +85,57 @@ function Gig() {
   const handleIncrement = () => {
     setQuantity(quantity + 1)
 
-
   };
+
+  const initPayment = (data) => {
+    const options = {
+      key: import.meta.env.RAZORPAY_ID_KEY,
+      amount: data.amount,
+      currency: data.currency,
+      name: gig.title,
+      description: "Test Transaction",
+      image: gig.cover,
+      order_id: data.id,
+      handler: async (res) => {
+        try {
+          const verifyUrl = `/payment/verify`;
+          const { data } = await newRequest.post(verifyUrl, res)
+          console.log(data);
+          nav('/orders');
+
+
+        } catch (error) {
+          console.log(error);
+
+        }
+      },
+      theme: {
+        color: "#3399cc"
+      }
+
+
+
+
+
+
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  }
+  const handlePayment = async (price) => {
+    try {
+      const orderUrl = '/payment/orders'
+      const { data } = await newRequest.post(orderUrl, { amount: price })
+      console.log(data);
+      localStorage.setItem("gig", JSON.stringify(gig));
+      initPayment(data.data)
+
+    } catch (error) {
+      console.log(error);
+
+    }
+
+  }
 
 
   return (
@@ -215,7 +275,7 @@ function Gig() {
 
                   </DialogContentText>
 
-                  <Stack alignItems='center' spacing={2} sx={{ border: '1px solid' }}>
+                  <Stack spacing={4} sx={{ border: '1px solid', borderRadius: '4px', padding: '16px' }}>
                     <Grid container direction="row" justifyContent="space-between">
                       <Typography gutterBottom variant="h5" component='div'>
                         Basic
@@ -228,20 +288,23 @@ function Gig() {
                         Basic Package I will do a unique logo design for your business
                       </Typography>
                     </Grid>
+                    <Divider />
 
                     <Grid container direction="row" justifyContent="space-around">
 
 
                       <Typography>Gig Quantity </Typography>
+                      <IconButton color="primary" aria-label="min" onClick={() => handleDecrement()}>
+                        <RemoveCircleIcon sx={{ fontSize: 50 }} />
+                      </IconButton>
+                      <Typography>{quantity}</Typography>
 
                       <IconButton color="primary" aria-label="Add" onClick={() => handleIncrement()} >
                         <AddCircleIcon sx={{ fontSize: 50 }} />
                       </IconButton >
-                      <Typography>{quantity}</Typography>
 
-                      <IconButton color="primary" aria-label="min" onClick={() => handleDecrement()}>
-                        <RemoveCircleIcon sx={{ fontSize: 50 }} />
-                      </IconButton>
+
+
                     </Grid>
 
 
@@ -251,7 +314,7 @@ function Gig() {
                   <Typography >Upgrade your order with extras</Typography>
 
 
-                  <Stack alignItems='center' spacing={5} sx={{ border: '1px solid' }}>
+                  <Stack alignItems='center' spacing={5} sx={{ border: '1px solid', borderRadius: '4px', padding: '16px' }}>
                     <Grid container direction="row" justifyContent="space-between">
                       <Typography >Extra-fast 1-day delivery</Typography>
 
@@ -273,7 +336,7 @@ function Gig() {
 
                   </Stack>
 
-                  <Stack alignItems='center' spacing={5} sx={{ border: '1px solid' }}>
+                  <Stack alignItems='center' spacing={5} sx={{ border: '1px solid', borderRadius: '4px', padding: '16px' }}>
                     <Grid container direction="row" justifyContent="space-between">
 
                       <Typography >Additional revision(+1 day)</Typography>
@@ -313,7 +376,7 @@ function Gig() {
 
                 </DialogContent>
                 <DialogActions>
-                  <Button color="success" variant="contained">Continue(₹{data.price * quantity})</Button>
+                  <Button onClick={() => handlePayment(data.price * quantity)} color="success" variant="contained">Continue(₹{data.price * quantity})</Button>
                   <Button onClick={closePopup} color="error" variant="contained">Close</Button>
                 </DialogActions>
 
