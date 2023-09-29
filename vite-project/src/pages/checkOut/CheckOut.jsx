@@ -11,6 +11,8 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import newRequest from "../../utils/newRequest";
+import { useNavigate } from 'react-router-dom';
 
 
 function Copyright() {
@@ -26,7 +28,7 @@ function Copyright() {
   );
 }
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['View Your order', 'Payment details', 'Review your order'];
 
 function getStepContent(step) {
   switch (step) {
@@ -43,14 +45,31 @@ function getStepContent(step) {
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const nav = useNavigate()
 
-  const handleNext = () => {
+  const handleNavigate = ()=>{
+    nav('/orders')
+  }
+  
+  const handleNext = async () => {
+    
     setActiveStep(activeStep + 1);
+    if(activeStep === steps.length - 1 ){
+     const user = localStorage.getItem("currentUser");
+     const payment = localStorage.getItem("data")
+     const gig = localStorage.getItem('gig')
+
+      const { data } = await newRequest.post('/orders/checkout', { user,payment,gig })
+      console.log(data);
+
+    }
+
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+  
 
   return (
     <React.Fragment>
@@ -73,7 +92,7 @@ export default function Checkout() {
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
-            Checkout
+            Payment Completed
           </Typography>
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (
@@ -108,11 +127,12 @@ export default function Checkout() {
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                  {activeStep === steps.length - 1 ? 'Continue' : 'Next'}
                 </Button>
               </Box>
             </React.Fragment>
           )}
+          { activeStep === steps.length ? <Button onClick={handleNavigate}>View Orders</Button>: null}
         </Paper>
         <Copyright />
       </Container>

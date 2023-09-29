@@ -3,6 +3,7 @@ import "./GigCard.scss";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
+import { Stack, Skeleton } from '@mui/material';
 
 
 
@@ -41,12 +42,14 @@ const GigCard = ({ item }) => {
   return (
 
     <div className="gigCard">
-      
+
       <Link to={`/gig/${item._id}`} className="link">
         <img src={item.cover} alt="" />
         <div className="info">
           {isLoading ? (
-            "loading"
+            <Stack>
+              <Skeleton variant='text' animation='wave' />
+            </Stack>
           ) : error ? (
             "Something went wrong!"
           ) : (
@@ -55,7 +58,10 @@ const GigCard = ({ item }) => {
               <span>{data.userName}</span>
             </div>
           )}
-          <p>{item.desc}</p>
+          {isLoading ?
+            <Stack>
+              <Skeleton variant='text' animation='wave' />
+            </Stack> : <p>{item.desc}</p>}
           <div className="star">
             <img src="./img/star.png" alt="" />
             <span>
@@ -79,7 +85,10 @@ const GigCard = ({ item }) => {
 
         <div className="price">
           <span>STARTING AT</span>
-          <h2>$ {item.price}</h2>
+          {isLoading ?
+            <Stack>
+              <Skeleton variant='text' animation='wave' />
+            </Stack> : <h2>$ {item.price}</h2>}
         </div>
       </div>
     </div>

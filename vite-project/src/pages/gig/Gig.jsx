@@ -2,7 +2,7 @@ import "./Gig.scss";
 
 import {
   Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Divider, Typography, Stack,
-  Accordion, AccordionSummary, AccordionDetails, Grid
+  Accordion, AccordionSummary, AccordionDetails, Grid, Skeleton
 } from "@mui/material"
 import { useState } from "react"
 import { Slider } from "infinite-react-carousel/lib";
@@ -101,7 +101,7 @@ function Gig() {
           const verifyUrl = `/payment/verify`;
           const { data } = await newRequest.post(verifyUrl, res)
           console.log(data);
-          nav('/orders');
+          nav('/checkout');
 
 
         } catch (error) {
@@ -141,7 +141,12 @@ function Gig() {
   return (
     <div className="gig">
       {isLoading ? (
-        "loading"
+        <Stack variant='row'>
+          <Skeleton variant="rectangular" width={16} height={8} animation="wave" />
+          <Skeleton variant="text" animation="wave"/>
+          <Skeleton variant="text" animation="wave"/>
+          <Skeleton variant="text" animation="wave"/>
+        </Stack>
       ) : error ? (
         "Something went wrong!"
       ) : (
@@ -150,7 +155,9 @@ function Gig() {
             <span className="breadcrumbs">
               Fiverr {">"} Graphics & Design {">"}
             </span>
-            <h1>{data.title}</h1>
+            {isLoading ? <Stack>
+              <Skeleton variant="text" animation="wave" />
+            </Stack> : <h1>{data.title}</h1>}
             {isLoadingUser ? (
               "loading"
             ) : errorUser ? (

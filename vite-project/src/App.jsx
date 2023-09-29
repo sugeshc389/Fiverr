@@ -19,6 +19,7 @@ import {
 import Whishlist from "./pages/whishlist/Whishlist";
 import Profile from "./pages/profile/Profile";
 import OrderPopup from "./pages/orderPopup/OrderPopup";
+import Checkout from "./pages/checkOut/CheckOut";
 
 
 function App() {
@@ -94,16 +95,20 @@ function App() {
           element: <Register />
         },
         {
-          path:'/whishlist',
-          element:<Whishlist/>
+          path: '/whishlist',
+          element: <Whishlist />
         },
         {
-          path:'/profile',
-          element:<Profile/>
+          path: '/profile',
+          element: <Profile />
         },
         {
-          path:'/popup/:id',
-          element:<OrderPopup/>
+          path: '/popup/:id',
+          element: <OrderPopup />
+        },
+        {
+          path: '/checkout',
+          element: <Checkout />
         }
 
 
