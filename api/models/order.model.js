@@ -31,14 +31,14 @@ const orderSchema = new Schema({
         type:Boolean,
         default:false,
     },
-    payment_intent:{
-        type:String,
-        required:false,
-    },
-    quantity:{
-        type:Number,
-        required:true,
-    }
+    // payment_intent:{
+    //     type:String,
+    //     required:false,
+    // },
+    // quantity:{
+    //     type:Number,
+    //     required:true,
+    // }
     
     
 

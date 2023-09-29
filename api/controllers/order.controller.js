@@ -4,30 +4,42 @@ import Gig from "../models/gig.model.js";
 
 
 
-export const  createOrder = async (req, res, next) => {
+
+
+
+export const createOrder = async (req, res, next) => {
+    const user = req.body.user;
+    const payment = req.body.payment;
+    const gig = req.body.gig;
+    const gigDetail = JSON.parse(gig)
+    const paymentDetail = JSON.parse(payment)
+    const userDetail = JSON.parse(user)
+
     try {
-        const gig = await Gig.findById(req.params.gigId)
         const neworder = new Order({
-            gigId: gig._id,
-            img: gig.cover,
-            title: gig.title,
-            buyerId: req.userId,
-            sellerId: gig.userId,
-            price: gig.price,
-            payment_intent: "temporary",
-            isCompleted:true
+            gigId: gigDetail._id,
+            img: gigDetail.cover,
+            title: gigDetail.title,
+            buyerId: userDetail._id,
+            price: paymentDetail.amount,
+            isCompleted:true,
+            sellerId:gigDetail.userId,
 
-        })
+        });
 
-        await neworder.save()
-        res.send(200).send(neworder )
 
+        await neworder.save();
+
+
+        res.status(200).json({ data: neworder });
+        console.log(neworder);
     } catch (error) {
-        next(error)
 
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
     }
+};
 
-}
 
 export const getOrder = async (req, res, next) => {
     try {

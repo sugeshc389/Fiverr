@@ -24,6 +24,7 @@ router.post("/orders", async (req, res) => {
                 return res.status(500).json({ message: "Something went wrong" })
             }
             res.status(200).json({ data: order })
+            
         })
 
     } catch (error) {
