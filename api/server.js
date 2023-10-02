@@ -17,7 +17,6 @@ import paymentRoutes from './routes/payment.js';
 const app = express();
 dotenv.config();
 mongoose.set('strictQuery', true);
-
 const connect = async () => {
 
 
@@ -25,7 +24,7 @@ const connect = async () => {
         await mongoose.connect(process.env.MONGO);
         console.log("DB Connected");
     } catch (err) {
-        console.log(err);
+        console.log(err);  
     }
 
 
