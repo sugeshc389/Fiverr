@@ -33,6 +33,18 @@ export const getProfile = async (req, res, next) =>{
    res.status(200).send(user)
 
 }
+export const getUsers = async (req,res,next)=>{
+    try {
+        const users =await User.find()
+
+    res.status(200).send(users)
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
+    
+}
 
 
 
