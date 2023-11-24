@@ -28,7 +28,7 @@ const Add = () => {
     e.target[0].value = "";
   };
 
-  const handleUpload = async () => {
+  const handleUpload = async () => {0
     setUploading(true);
     try {
       const cover = await upload(singleFile);

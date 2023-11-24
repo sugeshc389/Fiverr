@@ -19,11 +19,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 
 
-
-
-
-
-
 function Gig() {
   const { id } = useParams();
   const [open, openChange] = useState(false);
@@ -112,10 +107,6 @@ function Gig() {
       theme: {
         color: "#3399cc"
       }
-
-
-
-
 
 
     };

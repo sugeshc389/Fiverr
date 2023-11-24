@@ -22,6 +22,7 @@ import OrderPopup from "./pages/orderPopup/OrderPopup";
 import Checkout from "./pages/checkOut/CheckOut";
 
 
+
 function App() {
   const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ function App() {
       </div>
     )
   }
+  
   const router = createBrowserRouter([
     {
       path: '/',
@@ -109,18 +111,23 @@ function App() {
         {
           path: '/checkout',
           element: <Checkout />
-        }
+        },
+
 
 
       ]
-    }
+    },
   ])
+
+
+
 
 
   return (
     <>
 
       <RouterProvider router={router} />
+
 
 
     </>

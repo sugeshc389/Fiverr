@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./Orders.scss";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
+import { Skeleton, Stack } from "@mui/material";
 
 const Orders = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));   
@@ -36,7 +37,12 @@ const Orders = () => {
   return (
     <div className="orders">
       {isLoading ? (
-        "loading"
+        <Stack>
+          <Skeleton variant="rectangular" width={40} height={20}/>
+          <Skeleton variant="text"/>
+          <Skeleton variant="text"/>
+          <Skeleton variant="text"/>
+        </Stack>
       ) : error ? (
         "error"
       ) : (

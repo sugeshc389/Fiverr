@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import './Profile.scss'
+import { Stack } from "@mui/system";
+import { Skeleton } from "@mui/material";
 
 const Profile = () => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -12,11 +15,18 @@ const Profile = () => {
                 return res.data;
             }),
     });
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    })
 
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+    // if (isLoading) {
+    //     return <Stack
+    //         variant='row'>
+    //         <Skeleton variant="rectangular" width={450} height={450} />
+    //         <Skeleton variant="rectangular" width={450} height={450} />
+    //     </Stack>
+    // }
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -42,13 +52,20 @@ const Profile = () => {
             <div className="parent">
                 <div className="div1">
                     <div className="proPic">
-                        <img className="proImg" src={data?.img || "/img/noavatar.jpg"} alt="" />
+                        {isLoading ? <Stack>
+                            <Skeleton variant="circular" width={80} height={80} />
+                        </Stack> :
+                            <img className="proImg" src={data?.img || "/img/noavatar.jpg"} alt="" />}
                         <div className='btn-div'>
                             <button className='btn'>.Online</button>
                         </div>
                     </div>
                     <div className="disName">
-                        <a href="">{data.userName}</a>
+                        {isLoading ?
+                            <Stack>
+                                <Skeleton variant="text" />
+                            </Stack> :
+                            <a href="">{data.userName}</a>}
                         <img src="/img/edit.svg" alt="" />
                         <button>NEW</button>
                     </div>

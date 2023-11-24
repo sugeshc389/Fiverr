@@ -39,6 +39,7 @@ function Register() {
                 img: url
 
             })
+            
             navigate("/")
 
         } catch (error) {
