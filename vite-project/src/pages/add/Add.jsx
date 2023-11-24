@@ -160,7 +160,7 @@ const Add = () => {
                 </div>
               ))}
             </div>
-            <label htmlFor="">Price</label>
+            <label htmlFor="">Price :</label>
             <input type="number" onChange={handleChange} name="price" />
           </div>
         </div>
