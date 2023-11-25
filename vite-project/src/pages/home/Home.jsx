@@ -36,7 +36,7 @@ export const Home = () => {
             <div className="title">
               <img src="/img/check.png" alt="" />
 
-              Pay when you're happy
+              Pay when you're happy !!!
 
             </div>
             <p>Upfront quotes mean no surprises. Payments only get released when you approve.</p>
